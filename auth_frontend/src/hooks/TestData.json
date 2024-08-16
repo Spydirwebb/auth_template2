@@ -1,0 +1,46 @@
+{
+    "users": [
+        {"id": "1", "name": "Harry Potter", "email": "harry.potter@hogwarts.edu", "password": "password", 
+            "permissions": [
+                {"studyId": "1", "permissions": "admin"},
+                {"studyId":"2", "permissions": "coordinator"},
+                {"studyId": "3", "permissions": "coordinator"}
+            ]
+        },
+        {"id": "2", "name": "Hermione Granger", "email": "hermione.granger@hogwarts.edu", "password": "password", 
+            "permissions": [
+                {"studyId": "1", "permissions": "coordinator"},
+                {"studyId":"2", "permissions": "coordinator"}
+            ]
+        },
+        {"id": "3", "name": "Albus Dumbledore", "email": "Albus.Dumbledore@hogwarts.edu", "password": "password", 
+            "permissions": [
+                {"studyId": "1", "permissions": "Investigator"}
+            ]
+        }
+    ],
+    "studies": [
+        {"id": "1", "name": "PAT", "site number": "100", "investigatorId": ["3"], "coordinatorId": ["1","2"], "randomization_sequence": "TCTCTCTCTCTCTCTCTCTC",
+            "subjects": [
+                {"id":"100-1", "yearOfBirth": "1991", "treatment-group": "T", "intervention-number": "1111"},
+                {"id":"100-2", "yearOfBirth": "1992", "treatment-group": "C", "intervention-number": "2221"},
+                {"id":"100-3", "yearOfBirth": "1993", "treatment-group": "T", "intervention-number": "1112"},
+                {"id":"100-4", "yearOfBirth": "1994", "treatment-group": "C", "intervention-number": "2222"}
+            ] 
+        },
+        {"id": "2", "name": "AGNOS", "site number": "1038", "investigatorId": [], "coordinatorId": ["1","2"], "randomization_sequence": "",
+            "subjects": [
+                {"id":"1038-1", "yearOfBirth": "1991", "treatment-group": null, "intervention-number": "1111"},
+                {"id":"1038-2", "yearOfBirth": "1992", "treatment-group": "T", "intervention-number": "2221"},
+                {"id":"1038-3", "yearOfBirth": "1993", "treatment-group": null, "intervention-number": "1112"}
+            ] 
+        },
+        {"id": "3", "name": "Proseek", "site number": "153", "investigatorId": [], "coordinatorId": ["1"], "randomization_sequence": "",
+            "subjects": [
+                {"id":"153-1", "yearOfBirth": "1991", "treatment-group": "T", "intervention-number": "1111"},
+                {"id":"153-2", "yearOfBirth": "1992", "treatment-group": null, "intervention-number": "2221"},
+                {"id":"153-3", "yearOfBirth": "1993", "treatment-group": "C", "intervention-number": "1112"}
+            ] 
+        }
+    ]
+}
