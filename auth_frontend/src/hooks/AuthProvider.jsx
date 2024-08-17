@@ -1,11 +1,11 @@
-import { useContext, createContext, useState } from "react";
+import { useState } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { generateToken } from "./functions";
-import db from './TestData.json'
+import db from './TestData'
 
 const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(
     db.users.find(user => {
       return localStorage.getItem("userId") === user.id
@@ -13,7 +13,8 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("site") || "");
   const navigate = useNavigate();
   
-  const loginAction = (data) => {
+  // call this function when you want to authenticate the user
+  const loginAction = async (data) => {
     try{
       // find user based on email
       var activeUser = db.users.find(user => {
@@ -44,51 +45,24 @@ const AuthProvider = ({ children }) => {
       console.error(err)
       return false
     }
-
-  }
-  /*
-  const loginAction = async (data) => {
-    try {
-      console.log("form loginAction")
-      const response = await fetch("http://localhost:8000/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      const res = await response.json();
-      if (res.data) {
-        setUser(res.data.user);
-        setToken(res.token);
-        localStorage.setItem("site", res.token);
-        navigate("/dashboard");
-        return;
-      }
-      throw new Error(res.message);
-    } catch (err) {
-      console.error(err);
-    }
   };
-  */
 
-  const logOut = () => {
+  // call this function to sign out logged in user
+  const logoutAction = () => {
     setUser(null);
-    setToken("");
-    localStorage.removeItem("site");
-    localStorage.removeItem("userId")
-    navigate("/login");
+    navigate("/", { replace: true });
   };
 
-  return (
-    <AuthContext.Provider value={{ token, user, loginAction, logOut }}>
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo(
+    () => ({
+      user,
+      loginAction,
+      logoutAction,
+    }),
+    [user]
   );
-
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-
-export default AuthProvider;
 
 export const useAuth = () => {
   return useContext(AuthContext);

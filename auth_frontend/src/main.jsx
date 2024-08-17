@@ -4,26 +4,39 @@ import {
   createBrowserRouter,
   RouterProvider
 } from 'react-router-dom'
-import AuthProvider from './hooks/AuthProvider'
+
+import {AuthProvider} from './hooks/AuthProvider'
 import Root from './routes/Root'
 import Home from './routes/Home'
+import ProtectedRoute from './routes/ProtectedRoute'
 import ErrorPage from './errorPage'
 import Index from './index'
 import Study from './routes/Study'
 import Login from './routes/Login'
+import Dashboard from './routes/Dashboard'
 
 
 const router = createBrowserRouter([
   {
-    element: <AuthProvider />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
         element: <Home />
       },
-      {path: "/login",
-        element: <Login />
+      {
+        path: "/login",
+        element: <AuthProvider><Login /></AuthProvider>,
+      },
+      {
+        path: "/",
+        element: <AuthProvider><ProtectedRoute/></AuthProvider>,
+        children:[
+          {
+            path: "/dashboard",
+            element: <Dashboard />
+          }
+        ]
       }
     ]
   },

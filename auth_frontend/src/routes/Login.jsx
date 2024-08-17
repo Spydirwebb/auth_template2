@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useAuth } from "../hooks/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../hooks/AuthProvider'
 
 
 const Login = () => {
@@ -15,6 +15,7 @@ const Login = () => {
 
   const handleSubmitEvent = (e) => {
     e.preventDefault();
+    console.log(input)
     if (input.email !== "" && input.password !== "") {
       if (auth.loginAction(input)){
         navigate("/dashboard")
@@ -27,7 +28,7 @@ const Login = () => {
     alert("pleae provide a valid input");
   };
 
-  const handleHide = (e) => {
+  const handleTogglePassword= (e) => {
     e.preventDefault()
     setShowPassword(!showPassword)
   }
@@ -41,45 +42,33 @@ const Login = () => {
       [name]: value,
     }));
   };
-
   return (
-    <Form method="post" id="login-form">
-      <div className="form_control">
-        <label htmlFor="user-email">Email:</label>
+    <div>
+      <form onSubmit={handleSubmitEvent} id="login-form">
+        <label htmlFor='user-email'>Email: </label>
         <input
-          type="email"
-          id="user-email"
-          name="email"
+          id='user-email'
           placeholder="example@yahoo.com"
-          aria-describedby="user-email"
-          aria-invalid="false"
+          aria-label='email address'
+          type='email'
+          name='email'
           onChange={handleInput}
         />
-        <div id="user-email" className="sr-only">
-          Please enter a valid username. It must contain at least 6 characters.
-        </div>
-      </div>
-      <div className="form_control">
-        <label htmlFor="password">Password:</label>
-        <input
-          type={showPassword ? "text" : "password"}
-          id="password"
-          name="password"
-          aria-describedby="user-password"
-          aria-invalid="false"
-          onChange={handleInput}
-        />
-        <button onClick={handleHide}>
-          {showPassword ? "Hide" : "Show"}
-        </button>
-        <div id="user-password" className="sr-only">
-          your password should be more than 6 character
-        </div>
-      </div>
-      <button className="btn-submit">Submit</button>
-      {incorrect ? <p className="error">Incorrect information. Please try again</p> : ""}
-    </Form>
-  );
-};
+        <div>
+          <label htmlFor='user-password'>Password:</label>
+          <input
+            id='user-password'
+            aria-label='email address'
+            type={showPassword ? "text" : "password"}
+            name='password'
+            onChange={handleInput}
+          />
+          <button onClick={handleTogglePassword}>{showPassword ? "Hide" : "Show"}</button>
+         </div>
+        <button type="submit">Log In</button>
+      </form>
+    </div>
+  )
+}
 
-export default Login;
+export default Login
