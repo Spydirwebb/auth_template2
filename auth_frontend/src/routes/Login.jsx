@@ -18,6 +18,7 @@ const Login = () => {
     console.log(input)
     if (input.email !== "" && input.password !== "") {
       if (auth.loginAction(input)){
+        console.log(auth)
         navigate("/dashboard")
       } else{
         setIncorrect(true)
@@ -67,6 +68,7 @@ const Login = () => {
          </div>
         <button type="submit">Log In</button>
       </form>
+      <button onClick={auth.logoutAction}>Logout</button>
     </div>
   )
 }

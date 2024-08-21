@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import {generateToken} from './functions'
 import db from './TestData'
 
 const AuthContext = createContext();
@@ -50,11 +51,16 @@ export const AuthProvider = ({ children }) => {
   // call this function to sign out logged in user
   const logoutAction = () => {
     setUser(null);
+    setToken("");
+    localStorage.removeItem("site");
+    localStorage.removeItem("userId")
+    console.log(user)
     navigate("/", { replace: true });
   };
 
   const value = useMemo(
     () => ({
+      token,
       user,
       loginAction,
       logoutAction,
