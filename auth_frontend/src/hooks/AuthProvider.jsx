@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 import {generateToken} from './functions'
 import db from './TestData'
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(
     db.users.find(user => {
-      return localStorage.getItem("userId") === user.id
+      return sessionStorage.getItem("userId") === user.id
     }) || null);
-  const [token, setToken] = useState(localStorage.getItem("site") || "");
+  const [token, setToken] = useState(sessionStorage.getItem("site") || "");
   const navigate = useNavigate();
   
   // call this function when you want to authenticate the user
@@ -30,14 +30,14 @@ export const AuthProvider = ({ children }) => {
       
       // set User
       setUser(activeUser)
-      localStorage.setItem("userId", activeUser.id)
+      sessionStorage.setItem("userId", activeUser.id)
 
       // set token
       var token = generateToken(activeUser.email)
       setToken(token)
-      localStorage.setItem("site", token)
+      sessionStorage.setItem("site", token)
       
-      //console.log(localStorage.getItem("site"))
+      //console.log(sessionStorage.getItem("site"))
 
       // navigate away
       //navigate("/dashboard");
@@ -52,8 +52,8 @@ export const AuthProvider = ({ children }) => {
   const logoutAction = () => {
     setUser(null);
     setToken("");
-    localStorage.removeItem("site");
-    localStorage.removeItem("userId")
+    sessionStorage.removeItem("site");
+    sessionStorage.removeItem("userId")
     console.log(user)
     navigate("/", { replace: true });
   };
