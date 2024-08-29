@@ -15,18 +15,24 @@ const Login = () => {
 
   const handleSubmitEvent = (e) => {
     e.preventDefault();
-    console.log(input)
+    //console.log(input)
     if (input.email !== "" && input.password !== "") {
-      if (auth.loginAction(input)){
-        console.log(auth)
-        navigate("/dashboard")
-      } else{
-        setIncorrect(true)
-        setInput((prev) => ({...prev,  password: "",}))
-      }
+      auth.loginAction(input)
+        .then((response) => {
+          console.log(response)
+          if (response){
+            navigate("/dashboard")
+          } else{
+            setIncorrect(true)
+            setInput((prev) => ({...prev,  password: "",}))
+          }
+        }
+        )
+
+      
       return;
     }
-    alert("pleae provide a valid input");
+    alert("please provide a valid input");
   };
 
   const handleTogglePassword= (e) => {
@@ -59,9 +65,10 @@ const Login = () => {
           <label htmlFor='user-password'>Password:</label>
           <input
             id='user-password'
-            aria-label='email address'
+            aria-label='user password'
             type={showPassword ? "text" : "password"}
             name='password'
+            value={input.password}
             onChange={handleInput}
           />
           <button onClick={handleTogglePassword}>{showPassword ? "Hide" : "Show"}</button>
@@ -69,6 +76,7 @@ const Login = () => {
         <button type="submit">Log In</button>
       </form>
       <button onClick={auth.logoutAction}>Logout</button>
+      <p hidden={!incorrect}>Incorrect sign on information. Try again</p>
     </div>
   )
 }

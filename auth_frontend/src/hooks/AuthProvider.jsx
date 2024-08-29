@@ -23,11 +23,16 @@ export const AuthProvider = ({ children }) => {
           return user
         } else {
           throw new Error("Incorrect sign on information");
-          
         }
       })
-      //console.log("Active user: "+ activeUser.name)
-      
+    }catch(err) {
+      console.error(err)
+      return false
+    }
+
+    console.log("Active user: "+ activeUser.name)
+    
+    if(activeUser){
       // set User
       setUser(activeUser)
       sessionStorage.setItem("userId", activeUser.id)
@@ -42,11 +47,8 @@ export const AuthProvider = ({ children }) => {
       // navigate away
       //navigate("/dashboard");
       return true
-    } catch(err) {
-      console.error(err)
-      return false
     }
-  };
+  }
 
   // call this function to sign out logged in user
   const logoutAction = () => {

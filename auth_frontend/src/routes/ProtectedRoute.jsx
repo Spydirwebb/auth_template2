@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-const TIMOUT_DURATION = 10000 * 10 // 10 seconds for testing
+const TIMEOUT_DURATION = 10000 * 10 // 10 seconds for testing
 
 export const ProtectedRoute = ({ children }) => {
   const {token, logoutAction} = useAuth();
@@ -29,7 +29,8 @@ export const ProtectedRoute = ({ children }) => {
     setOpenModal(true)
   }
 
-  const {idleTimer} = useIdleTimeout({onIdle: handleIdle, idleTime: 5})
+  const {idleTimer} = useIdleTimeout({onIdle: handleIdle, idleTime: TIMEOUT_DURATION}) //
+  
   const stay = () => {
     setOpenModal(false)
     idleTimer.reset()
@@ -58,7 +59,7 @@ export const ProtectedRoute = ({ children }) => {
                 Your session is about to Expire
               </Typography>
               <Typography id="modal-modal-description" sx={{mt:2}}>
-                Your session is about to expire. You'll be automatically signed out.
+                Your session is about to expire. You'll be automatically signed out in.
               </Typography>
               <Typography id="modal-modal-description" sx={{mt:2}}>
                 Do you want to stay signed in?

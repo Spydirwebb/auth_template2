@@ -3,17 +3,18 @@ import {useIdleTimer} from 'react-idle-timer'
 import {AuthContext} from './AuthProvider'
 
 
-const useIdleTimeout = ({ onIdle, idleTime = 1}) => {
+const useIdleTimeout = ({ idleTime = 1}) => {
     const idleTimeout = 1000 * idleTime
     const [isIdle, setIsIdle] = useState(false)
     const { logoutAction } = useContext(AuthContext)
-    const handleIdle = () => {
+    
+    const onIdle = () => {
         setIsIdle(true)
     }
 
     const IdleTimer = useIdleTimer({
         timeout: idleTimeout,
-        promptTimour: idleTimeout / 2,
+        promptBeforeIdle: idleTimeout / 2,
         onPrompt: onIdle,
         onIdle: handleIdle,
         debounce: 500
