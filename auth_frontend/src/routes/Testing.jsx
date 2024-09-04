@@ -1,15 +1,27 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import makeServer from "../server"
+import { getReminders } from '../hooks/functions'
+
+
+export async function loader () {
+    const reminders = await getReminders()
+    if(!reminders) {
+        throw new Response("", {
+            status: 404,
+            statusText: "Reminders Not Found"
+        })
+    }
+    return {reminders}
+}
 
 
 const Testing = () => {  
-    makeServer();
     let { listId } = useParams()
     const [reminders, setReminders] = useState()
     const [error, setError] = useState(null)
     
+    /*
     useEffect(() => {
         let isCurrent = true
         let url = `api/reminders`
@@ -18,7 +30,7 @@ const Testing = () => {
             .then((res) => res.json())
             .then((json) => {
                 if (isCurrent) {
-                    console.log(json.reminders)
+                    console.log(json)
                     setReminders(json.reminders)
                 }
             })
@@ -31,18 +43,20 @@ const Testing = () => {
         return () => {
             isCurrent = false
         }
-    },[listId])
+    },[listId]) */
+
     
     return (
         <div>
             <h1>Reminders</h1>
-            <p>There are {reminders.length} reminders</p>
+            <p>There are reminders</p>
             <ul>
-                {reminders?.length > 0 ? (
+                {/*
+                reminders?.length > 0 ? (
                     reminders.map((reminder, i) => {
                         <li key={i}>{reminder.text}</li>
                     }
-                )): "All done!"}
+                )): "All done!" */}
             </ul>
         </div>
     )

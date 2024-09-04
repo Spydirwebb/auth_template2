@@ -13,7 +13,7 @@ API endpoints - CURRENT IN PROGRESS
     -how does POST login work?
     -internet keeps kicking me off at work. 
     -erroring out a lot
-    -need to make it like react router dom instead of useEffect for fetch
+    -404 errors after refresh
 
 login.js
     -how to make "enter" not show password

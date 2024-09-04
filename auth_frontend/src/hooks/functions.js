@@ -7,3 +7,21 @@ export const generateToken = (n) => {
     //console.log(token)
     return token;
 }
+
+export async function getReminders() {
+    let url = `api/reminders`
+    let reminders = null
+    fetch(url)
+        .then((res) => res.json())
+        .then((json) => {
+            console.log(json)
+            reminders = json
+        })
+        .finally(() =>  {
+            return reminders
+        })
+        .catch((e) => {
+            throw new Error("Can't fetch Reminders")
+        })
+
+}

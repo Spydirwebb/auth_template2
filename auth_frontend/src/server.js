@@ -1,5 +1,4 @@
-
-import { createServer } from "miragejs"
+import { createServer, Server } from "miragejs"
 
 export default function () {
   createServer({
@@ -12,5 +11,6 @@ export default function () {
           ],
       }))
     },
-  })
+  }) 
 }
+
