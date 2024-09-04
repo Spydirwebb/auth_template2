@@ -15,6 +15,7 @@ import Study from './routes/Study'
 import Login from './routes/Login'
 import Dashboard from './routes/Dashboard'
 import Unauthorized from './routes/Unauthorized'
+import Testing from './routes/Testing'
 
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path:"/unauthorized",
         element: <Unauthorized />
+      },
+      {
+        path: "/testing",
+        element: <Testing />
       },
       {
         path: "/login",
