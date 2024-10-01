@@ -17,36 +17,34 @@ export const AuthProvider = ({ children }) => {
   // call this function when you want to authenticate the user
   const loginAction = async (data) => {
     try{
-      // find user based on email
-      var activeUser = db.users.find(user => {
-        if((user.email === data.email) && (user.password === data.password)){
-          return user
-        } else {
-          throw new Error("Incorrect sign on information");
-        }
+      const response = await fetch("auth/login", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
       })
+      const res = await response.json()
+      if (res.data){
+        console.log(res.data)
+        // set User
+        setUser(activeUser)
+        sessionStorage.setItem("userId", activeUser.id)
+
+        // set token
+        var token = generateToken(activeUser.email)
+        setToken(token)
+        sessionStorage.setItem("site", token)
+        
+        //console.log(sessionStorage.getItem("site"))
+
+        // navigate away
+        //navigate("/dashboard");
+        return true
+      }
     }catch(err) {
       console.error(err)
       return false
-    }
-
-    console.log("Active user: "+ activeUser.name)
-    
-    if(activeUser){
-      // set User
-      setUser(activeUser)
-      sessionStorage.setItem("userId", activeUser.id)
-
-      // set token
-      var token = generateToken(activeUser.email)
-      setToken(token)
-      sessionStorage.setItem("site", token)
-      
-      //console.log(sessionStorage.getItem("site"))
-
-      // navigate away
-      //navigate("/dashboard");
-      return true
     }
   }
 

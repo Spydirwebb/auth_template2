@@ -10,10 +10,7 @@ Exit logout
 
 API endpoints - CURRENT IN PROGRESS
     -fake, mirage.js
-    -how does POST login work?
-    -internet keeps kicking me off at work. 
-    -erroring out a lot
-    -404 errors after refresh
+    -working in testing
 
 login.js
     -how to make "enter" not show password

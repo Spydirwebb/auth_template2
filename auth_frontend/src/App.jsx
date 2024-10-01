@@ -12,8 +12,8 @@ import ErrorPage from './errorPage'
 import Login from './routes/Login'
 import Dashboard from './routes/Dashboard'
 import Unauthorized from './routes/Unauthorized'
-import Testing, { loader as remindersLoader } from './routes/Testing'
-//import Testing from './routes/Testing'
+//import Testing, { loader as remindersLoader } from './routes/Testing'
+import Testing from './routes/Testing'
 import makeServer from "./server"
 
 
@@ -33,7 +33,6 @@ const router = createBrowserRouter([
       {
         path: "/testing",
         element: <Testing />,
-        loader: remindersLoader,
       },
       {
         path: "/login",
